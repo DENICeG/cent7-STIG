@@ -1,7 +1,7 @@
 Centos 7 DISA STIG
 ================
 
-Configure Centos 7 machine to be DISA STIG compliant. CAT I CAT II and CAT III findings will be corrected by default. Findings can be enabled/disabled by setting the appropriate variable to enable those playbooks.
+Configure Centos 7 machine to be DISA STIG compliant. CAT I and CAT II findings will be corrected by default. Findings can be enabled/disabled by setting the appropriate variable to enable those playbooks. CAT III was not used or modified by DENIC eG in this fork, so it might work or not.
 
 ### WARNING
  There is no STIG for RHEL/Centos 7 yet, it is still in draft form... this playbook is based off the published RHEL6 STIG, and attempts to apply that to a Centos 7 system.
@@ -11,17 +11,14 @@ This role **will make changes to the system** that could break things. This is n
 
 The role tries to be helpful and pause to let you know it found something. You can disable this behaviour if you want to run it unattended by setting `cent7stig_fullauto` to `true`.
 
-## IMPORTANT INSTALL STEP
-
-If you want to install this via the `ansible-galaxy` command you'll need to run it like this: 
-
-`ansible-galaxy install -p roles dsmorse.STIG-cent7,devel`
+## History
 
 Based on [Red Hat Enterprise Linux 6 STIG Version 1 Release 6 - 2015-01-23](http://iase.disa.mil/stigs/os/unix-linux/Pages/index.aspx).
 
 Inspiration and some config files taken from [RedHatGov](https://github.com/RedHatGov) [stig-fix-el6](https://github.com/RedHatGov/stig-fix-el6).
 
-This repo was created by [David Morse](https://github.com/dsmorse) but is derived from work previously done by [Sam Doran](https://github.com/samdoran/ansible-role-stig)
+This repo was created by [Christian Simmen, DENIC eG](https://github.com/deniceg) but is derived from work previously done by [David Morse](https://github.com/dsmorse) and [Sam Doran](https://github.com/samdoran/ansible-role-stig).
+
 
 Requirements
 ------------
@@ -56,7 +53,7 @@ There are many role variables defined in defaults/main.yml. This list shows the 
 Dependencies
 ------------
 
-Ansible > 1.8
+Ansible > 2.2
 
 Example Playbook
 -------------------------

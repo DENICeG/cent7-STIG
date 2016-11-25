@@ -14,8 +14,14 @@
 - name: reload xinetd
   service: name=xinetd state=reloaded
 
-- name: restart auditd
-  service: name=auditd state=restarted
+- name: start auditd
+  service: name=auditd state=started
+
+- name: reload auditd
+  service: name=auditd state=reloaded
+
+- name: auditd rules reload
+  command: /sbin/augenrules --load
 
 - name: unload usb-storage
   modprobe: name=usb-storage state=absent

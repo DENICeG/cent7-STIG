@@ -4,7 +4,6 @@
   stat:
       path: /etc/snmp/snmpd.conf
   register: snmpconf_test
-  always_run: yes
   tags:
       - cat1
       - cat2
@@ -15,9 +14,8 @@
 # Setup variables based on operating system
 - name: "PRELIM | Set gpg_key_url for CentOS"
   set_fact:
-      gpg_key_url: http://mirror.centos.org/centos/RPM-GPG-KEY-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}
+      gpg_key_url: http://172.21.116.4/cobbler/ks_mirror/centos7-minimal/RPM-GPG-KEY-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}
   when: "ansible_distribution == 'CentOS'"
-  always_run: yes
   tags:
       - cat1
       - V-38476
@@ -27,7 +25,6 @@
   set_fact:
       gpg_key_url: https://www.redhat.com/security/fd431d51.txt
   when: "ansible_distribution == 'RedHat'"
-  always_run: yes
   tags:
       - cat1
       - V-38476
@@ -38,7 +35,6 @@
   command: "awk -F: '{print $1}' /etc/passwd"
   register: users
   changed_when: false
-  always_run: yes
   tags:
       - cat1
       - cat2
@@ -49,7 +45,6 @@
       awk -F: '$1 !~ /^root$/ && $2 !~ /^[!*]/ {print $1}' /etc/shadow
   register: unlocked_accounts
   changed_when: false
-  always_run: yes
   tags:
       - cat1
       - cat2
@@ -61,7 +56,6 @@
       awk -F: '$1 !~ /^root$/ && $2 !~ /^[!*]/ {print $1}' /etc/shadow | xargs -I{} grep {} /etc/passwd | awk -F: '$3 < 500 {print $1}'
   register: unlocked_sys_accounts
   changed_when: false
-  always_run: yes
   tags:
       - cat1
       - cat2
@@ -72,7 +66,6 @@
   shell: "grep -Ev '/home|root' /etc/passwd | cut -d : -f 1"
   register: system_users
   changed_when: false
-  always_run: yes
   tags:
       - cat1
       - cat2
@@ -84,7 +77,6 @@
   shell: "systemctl list-unit-files --type service | grep sysv | awk '{print $1}'"
   register: sysv_services
   changed_when: false
-  always_run: yes
   tags:
       - cat1
       - cat2
@@ -95,7 +87,6 @@
   shell: "systemctl list-unit-files --type service | grep vsftpd | awk '{print $1}'"
   register: vsftpd_services
   changed_when: false
-  always_run: yes
   tags:
       - cat1
       - cat2
@@ -104,9 +95,9 @@
 
 - name: "PRELIM | List xinetd services"
   shell: "systemctl list-unit-files --type service | grep xinetd | awk '{print $1}'"
+  #shell: "grep -Pzo '(?s)^service\s[^\{]*\{.*disable\s*=\s*[^yes]{3}.*\}' /etc/xinetd.d/* | awk 'NF==2 {print $2}'"
   register: xinetd_services
   changed_when: false
-  always_run: yes
   tags:
       - cat1
       - cat2
@@ -120,7 +111,6 @@
   failed_when: false
   register: cent7stig_ipv6test
   ignore_errors: yes
-  always_run: yes
   tags:
       - ipv6
       - always
@@ -128,7 +118,6 @@
 - name: "PRELIM | Set ipv6_in_use to 'true'"
   set_fact: ipv6_in_use=true
   when: cent7stig_ipv6test.stdout
-  always_run: yes
   tags:
       - ipv6
       - always
@@ -138,7 +127,6 @@
   shell: grep -Pv "/(sh|nologin|dash)" /etc/shells | sed -r 's#/((bin|sbin|usr)/)+##'
   register: shells
   changed_when: false
-  always_run: yes
   tags:
       - umask
       - always
