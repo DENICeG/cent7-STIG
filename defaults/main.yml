@@ -4,7 +4,7 @@ cent7stig_centos_gpg_key_url: http://mirror.centos.org/centos/RPM-GPG-KEY-{{ ans
 # Enable or disable remediation for each category
 cent7stig_cat1: true
 cent7stig_cat2: true
-cent7stig_cat3: true
+cent7stig_cat3: false
 
 # Changing system defaults
 cent7stig_snmp_community: B0re4lis
@@ -14,10 +14,6 @@ cent7stig_pass_max_days: 60
 cent7stig_pam_unix_params: sha512 shadow try_first_pass use_authtok remember=24
 cent7stig_pam_auth_sufficient: pam_unix.so try_first_pass
 cent7stig_pam_cracklib_params: try_first_pass retry=3 maxrepeat=3 minlen=14 dcredit=-1 ucredit=-1 ocredit=-1 lcredit=-1 difok=4
-cent7stig_pam_faillock_params:
-  - 'auth        [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900'
-  - 'auth        required      pam_faillock.so authsucc deny=3 unlock_time=604800 fail_interval=900'
-  - 'auth        required      pam_faillock.so preauth silent deny=3 unlock_time=604800 fail_interval=900'
 
 # SELinux settings
 cent7stig_selinux_pol: targeted

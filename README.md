@@ -1,7 +1,8 @@
 Centos 7 DISA STIG
 ================
 
-Configure Centos 7 machine to be DISA STIG compliant. CAT I and CAT II findings will be corrected by default. Findings can be enabled/disabled by setting the appropriate variable to enable those playbooks. CAT III was not used or modified by DENIC eG in this fork, so it might work or not.
+Configure Centos 7 machine to be DISA STIG compliant. CAT I and CAT II findings will be corrected by default. Findings can be enabled/disabled by setting the appropriate variable to enable those playbooks.
+CAT III was not used or modified by DENIC eG in this fork, so it might work or not.
 
 ### WARNING
  There is no STIG for RHEL/Centos 7 yet, it is still in draft form... this playbook is based off the published RHEL6 STIG, and attempts to apply that to a Centos 7 system.
@@ -18,7 +19,7 @@ Based on [Red Hat Enterprise Linux 6 STIG Version 1 Release 6 - 2015-01-23](http
 Inspiration and some config files taken from [RedHatGov](https://github.com/RedHatGov) [stig-fix-el6](https://github.com/RedHatGov/stig-fix-el6).
 
 This repo was created by [Christian Simmen, DENIC eG](https://github.com/deniceg) but is derived from work previously done by [David Morse](https://github.com/dsmorse) and [Sam Doran](https://github.com/samdoran/ansible-role-stig).
-
+Updated to [Red Hat Enterprise Linux 6 STIG Version 1 - 2016-07-22](https://www.stigviewer.com/stig/red_hat_enterprise_linux_6/2016-07-22/)
 
 Requirements
 ------------
