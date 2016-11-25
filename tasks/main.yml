@@ -19,6 +19,6 @@
       - post_tasks
       - test
 
-- include: not_automated.yml
-  tags:
-      - not_auto_fixed
+#- include: not_automated.yml
+#  tags:
+#      - not_auto_fixed

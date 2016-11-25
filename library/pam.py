@@ -19,7 +19,7 @@
 # along with Ansible.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, re
-from os.path import isfile, join
+from os.path import isdir, isfile, join
 
 
 DOCUMENTATION = '''
@@ -318,6 +318,7 @@ def modify_rule(module, config_path, rule_index, config_lines, **kwargs):
     else:
         args_index = 4
 
+    delete_rule(config_path,rule_index,config_lines)
     if kwargs['arguments']:
         if not set(kwargs['arguments'].split()).issuperset(filter(None, set(rule_split[args_index:]))):
             rule_split[args_index] = kwargs['arguments']
@@ -330,7 +331,6 @@ def modify_rule(module, config_path, rule_index, config_lines, **kwargs):
 
             return True
         else:
-            # print 'yay'
             return False
 
 
@@ -342,11 +342,11 @@ def placed_correctly(config_lines, current_location, ref_line=None, placement=No
     if placement == 'after':
 
         if current_location - 1 >= 0:
-            line_before_entry = filter(None, re.split(REGEX_PATTERN, config_lines[current_location - 1]))[:len_limit]
+            line_before_entry = filter(None, re.split(REGEX_PATTERN, config_lines[current_location - 1]))
         else:
             return False
 
-        if set(line_before_entry) == set(ref_line):
+        if all(arg in line_after_entry for arg in ref_line):
             return True
         else:
             return False
@@ -354,11 +354,11 @@ def placed_correctly(config_lines, current_location, ref_line=None, placement=No
     elif placement == 'before':
 
         try:
-            line_after_entry = filter(None, re.split(REGEX_PATTERN, config_lines[current_location + 1]))[:len_limit]
+            line_after_entry = filter(None, re.split(REGEX_PATTERN, config_lines[current_location + 1]))
         except Exception:
             line_after_entry = []
 
-        if set(line_after_entry) == set(ref_line):
+        if all(arg in line_after_entry for arg in ref_line):
             return True
         else:
             return False
@@ -375,9 +375,8 @@ def move_line(path=None, content=None, pam_entry=None, pam_entry_index=None, ref
     len_limit = len(ref_line)
 
     for line in content:
-        c_line = filter(None, re.split(REGEX_PATTERN, line))[:len_limit]
-
-        if set(c_line) == set(ref_line):
+        c_line = filter(None, re.split(REGEX_PATTERN, line))
+        if all(arg in c_line for arg in ref_line):
             del content[pam_entry_index]
             content = filter(None, content)
             ref_index = content.index(line) + 1
@@ -398,7 +397,7 @@ def move_line(path=None, content=None, pam_entry=None, pam_entry_index=None, ref
 
     elif placement == 'before':
         if ref_index - 1 > 0:
-            content.insert(ref_index, pam_entry)
+            content.insert(ref_index - 1, pam_entry)
         else:
             content.insert(0, pam_entry)
         config = open(path, 'w')
@@ -453,6 +452,7 @@ def pam_manager(**kwargs):
         pam_entry = "%s      %s      %s      %s      %s" % (service, pam_type, control, pam_module, arguments)
 
     if state == 'present':
+
         if pamd_in_use():
             if not config_exists(service) and make_config:
                 changed = True
@@ -581,8 +581,9 @@ def main():
         arguments = ''
 
     for path in pam_spec_args['PAM_MOD_DIRS']:
-        valid_modules = [ pam_mod for pam_mod in os.listdir(path) if isfile(join(path,pam_mod)) ]
-        pam_spec_args['VALID_PAM_MODULES'] += valid_modules
+        if isdir(path):
+          valid_modules = [ pam_mod for pam_mod in os.listdir(path) if isfile(join(path,pam_mod)) ]
+          pam_spec_args['VALID_PAM_MODULES'] += valid_modules
 
     if not is_valid_type(pam_type, **pam_spec_args):
         module.fail_json(msg="Invalid PAM type: %s, specified. Must be one of: %s" % (pam_type, pam_spec_args['VALID_TYPES']))
@@ -591,7 +592,7 @@ def main():
         module.fail_json(msg="Invalid PAM module: %s, specified. Must be one of: %s" % (pam_module, pam_spec_args['VALID_PAM_MODULES']))
 
     check_if_valid_control(module, control, **pam_spec_args)
-
+    
     pam_manager_args = dict(module=module, service=service, pam_type=pam_type, control=control,
                             pam_module=pam_module, arguments=arguments, add_paths=add_paths,
                             make_config=make_config, before_line=before_line, after_line=after_line,

@@ -59,7 +59,6 @@
     - V-38491
     - rhosts
 
-# Todo: authconfig in CentOS7? /etc/pam.d/system-auth-ac?
 - name: "HIGH | V-38497 | AUDIT | The system must not have accounts configured with blank or null passwords"
   command: grep nullok /etc/pam.d/system-auth
   register: nullok_audit
@@ -74,10 +73,12 @@
     - V-38497
     - passwords
 
+# authconfig will possibly overwrite changes made by patch
 - name: "HIGH | V-38497 | PATCH | The system must not have accounts configured with blank or null passwords"
   replace:
       dest: /etc/pam.d/system-auth
       regexp: nullok
+      follow: yes
   when: nullok_audit.failed
   tags:
     - high
