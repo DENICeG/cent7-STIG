@@ -4,6 +4,7 @@
   register: nfs_insecure_locking_audit
   ignore_errors: yes
   changed_when: no
+  when: cent7stig_cat1
   tags:
       - high
       - cat1
@@ -17,6 +18,7 @@
   shell: "awk -F: '($2 != \"x\") {print}' /etc/passwd"
   changed_when: false
   register: etc_password_hash_audit
+  when: cent7stig_cat2
   tags:
       - medium
       - cat2
@@ -30,6 +32,7 @@
   changed_when: no
   ignore_errors: yes
   register: users_uid_0_audit
+  when: cent7stig_cat2
   tags:
       - medium
       - cat2
@@ -44,6 +47,7 @@
   changed_when: no
   ignore_errors: yes
   register: rsyslog_log_mgmt_audit
+  when: cent7stig_cat2
   tags:
       - medium
       - cat2
@@ -60,6 +64,7 @@
   register: tmp_mounted_audit
   ignore_errors: yes
   changed_when: no
+  when: cent7stig_cat3
   tags:
       - low
       - cat3
@@ -73,6 +78,7 @@
   register: var_mounted_audit
   changed_when: no
   ignore_errors: yes
+  when: cent7stig_cat3
   tags:
       - low
       - cat3
@@ -86,6 +92,7 @@
   register: varlog_mounted_audit
   changed_when: no
   ignore_errors: yes
+  when: cent7stig_cat3
   tags:
       - low
       - cat3
@@ -99,6 +106,7 @@
   register: varlogaudit_mounted_audit
   changed_when: no
   ignore_errors: yes
+  when: cent7stig_cat3
   tags:
       - low
       - cat3
@@ -112,6 +120,7 @@
   register: home_mounted_audit
   changed_when: no
   ignore_errors: yes
+  when: cent7stig_cat3
   tags:
       - low
       - cat3
@@ -125,6 +134,7 @@
   changed_when: false
   failed_when: false
   register: missing_group_audit
+  when: cent7stig_cat3
   tags:
       - low
       - cat3
@@ -138,6 +148,7 @@
   changed_when: false
   failed_when: false
   register: duplicate_account_audit
+  when: cent7stig_cat3
   tags:
       - low
       - cat3
@@ -150,6 +161,7 @@
   shell: "lsblk | awk '$6 == \"part\" && $7 ~ /\\// {print $NF}' | xargs -I{} find {} -xdev -type d -perm -0002 \\! -perm -1000"
   changed_when: false
   register: stick_bit_public_dir_audit
+  when: cent7stig_cat3
   tags:
       - low
       - cat3
@@ -163,6 +175,7 @@
   shell: "lsblk | awk '$6 == \"part\" && $7 ~ /\\// {print $NF}' | xargs -I{} find {} -xdev -type d -perm -0002 -uid +499 -print"
   changed_when: false
   register: system_account_public_dir_audit
+  when: cent7stig_cat3
   tags:
       - low
       - cat3

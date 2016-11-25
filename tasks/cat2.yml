@@ -1,10 +1,10 @@
 ---
-# V-38499 is checked but not automatically patched, please see not_automated.yml
-# V-38500 is checked but not automatically patched, please see not_automated.yml
-# V-38520 is checked but not automatically patched, please see not_automated.yml
-# V-38521 is checked but not automatically patched, please see not_automated.yml
-# V-38658 is not implemented yet
-# V-51875 is not implemented yet
+# ToDo: V-38499 is checked but not automatically patched, please see not_automated.yml
+# ToDo: V-38500 is checked but not automatically patched, please see not_automated.yml
+# ToDo: V-38520 is checked but not automatically patched, please see not_automated.yml
+# ToDo: V-38521 is checked but not automatically patched, please see not_automated.yml
+# ToDo: V-38658 is not implemented yet
+# ToDo: V-51875 is not implemented yet
 
 - name: "MEDIUM | V-38443 | AUDIT | The /etc/gshadow file must be owned by root.\n
      \t\tMEDIUM | V-38448 | AUDIT | The /etc/gshadow file must be group-owned by root.\n
@@ -433,7 +433,6 @@
       - V-38498
       - file_perms
 
-# --------------------------------   TBD   --------------------------------
 - name: "MEDIUM | V-38501 | AUDIT | The system must disable accounts after excessive login failures within a 15-minute interval.\n
      \t\tMEDIUM | V-38573 | AUDIT | The system must disable accounts after three consecutive unsuccessful logon attempts.\n
      \t\tMEDIUM | V-38592 | AUDIT | The system must require administrator action to unlock an account locked by excessive failed login attempts."
@@ -1407,7 +1406,6 @@
       - packages
       - patch
 
-# V-38613 will break automation, and therefor be issued as post task
 - name: "MEDIUM | V-38611 | AUDIT | The SSH daemon must ignore .rhosts files.\n
      \t\tMEDIUM | V-38612 | AUDIT | The SSH daemon must not allow host-based authentication\n
      \t\tMEDIUM | V-38613 | AUDIT | The system must not permit root logins using remote access programs such as ssh\n
@@ -1419,7 +1417,7 @@
   with_items:
     - { ref: 'V-38611' , st: 'present', rx: "^(#)?IgnoreRhosts", ln: "IgnoreRhosts yes" }
     - { ref: 'V-38612' , st: 'present', rx: "^(#)?HostbasedAuthentication", ln: "HostbasedAuthentication no" }
-#    - { ref: 'V-38613' , st: 'present', rx: "^(#)?PermitRootLogin", ln: "PermitRootLogin no" }
+    - { ref: 'V-38613' , st: 'present', rx: "^(#)?PermitRootLogin", ln: "PermitRootLogin no" }
     - { ref: 'V-38615' , st: 'present', rx: "^(#)?Banner", ln: "Banner /etc/issue" }
     - { ref: 'V-38615' , st: 'present', rx: "^(#)?PrintLastLog", ln: "PrintLastLog yes" }
   tags:
@@ -1445,7 +1443,7 @@
   with_items:
     - { ref: 'V-38611' , st: 'present', rx: "^(#)?IgnoreRhosts", ln: "IgnoreRhosts yes" }
     - { ref: 'V-38612' , st: 'present', rx: "^(#)?HostbasedAuthentication", ln: "HostbasedAuthentication no" }
-#    - { ref: 'V-38613' , st: 'present', rx: "^(#)?PermitRootLogin", ln: "PermitRootLogin no" }
+    - { ref: 'V-38613' , st: 'present', rx: "^(#)?PermitRootLogin", ln: "PermitRootLogin no" }
     - { ref: 'V-38615' , st: 'present', rx: "^(#)?Banner", ln: "Banner /etc/issue" }
     - { ref: 'V-38615' , st: 'present', rx: "^(#)?PrintLastLog", ln: "PrintLastLog yes" }
   notify: restart ssh
@@ -1535,7 +1533,7 @@
 #  when: cent7stig_xwindows_required
 #  tags: [ 'medium' , 'cat2' , 'V-38630' , 'xwindows' , 'gui' , 'screen_lock' ]
 
-## V-38688: Not implemented yet
+## ToDo: V-38688: Not implemented yet
 #- name: "MEDIUM | V-38688 | AUDIT | A login banner must be displayed immediately prior to, or as part of, graphical desktop environment login prompts."
 #  when: cent7stig_xwindows_required
 #  tags: [ 'medium' , 'cat2' , 'V-38688' , 'logon_settings' , 'xwindows' , 'gui' , 'dod_logon_banner' ]
@@ -1544,19 +1542,21 @@
 #  when: cent7stig_xwindows_required
 #  tags: [ 'medium' , 'cat2' , 'V-38688' , 'logon_settings' , 'xwindows' , 'gui' , 'dod_logon_banner' ]
 
+## ToDo: V-38629: Not implemented yet
 #- name: "MEDIUM | V-38629 | AUDIT | The graphical desktop environment must set the idle timeout to no more than 15 minutes"
 #  when: cent7stig_xwindows_required
 #  tags: [ 'medium' , 'cat2' , 'V-38629' , 'xwindows' , 'gui' , 'screen_lock' ]
-
+#
 #- name: "MEDIUM | V-38629 | PATCH | The graphical desktop environment must set the idle timeout to no more than 15 minutes"
 #  command: gconftool-2 --direct --config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory --type int --set /apps/gnome-screensaver/idle_delay 15
 #  when: cent7stig_xwindows_required
 #  tags: [ 'medium' , 'cat2' , 'V-38629' , 'xwindows' , 'gui' , 'screen_lock' ]
 
+## ToDo: V-38638: Not implemented yet
 #- name: "MEDIUM | V-38638 | AUDIT | The graphical desktop environment must have automatic lock enabled"
 #  when: cent7stig_xwindows_required
 #  tags: [ 'medium' , 'cat2' , 'V-38638' , 'xwindows' , 'gui' , 'screen_lock' ]
-
+#
 #- name: "MEDIUM | V-38638 | PATCH | The graphical desktop environment must have automatic lock enabled"
 #  command: gconftool-2 --direct --config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory --type bool --set /apps/gnome-screensaver/lock_enabled true
 #  when: cent7stig_xwindows_required
@@ -1793,7 +1793,7 @@
      - postfix
      - patch
 
-# SELinux not installed by default :(, need reboot to enable :((
+# ToDo: need reboot to enable SELinux :(
 #- name: "MEDIUM | V-51363 | AUDIT | The system must use a Linux Security Module configured to enforce limits on system services."
 #  command: selinuxenabled
 #  register: selinux_adit
