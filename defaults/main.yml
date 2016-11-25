@@ -1,4 +1,6 @@
 ---
+cent7stig_centos_gpg_key_url: http://mirror.centos.org/centos/RPM-GPG-KEY-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}
+
 # Enable or disable remediation for each category
 cent7stig_cat1: true
 cent7stig_cat2: true

@@ -14,7 +14,7 @@
 # Setup variables based on operating system
 - name: "PRELIM | Set gpg_key_url for CentOS"
   set_fact:
-      gpg_key_url: http://172.21.116.4/cobbler/ks_mirror/centos7-minimal/RPM-GPG-KEY-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}
+      gpg_key_url: '{{ cent7stig_centos_gpg_key_url }}'
   when: "ansible_distribution == 'CentOS'"
   tags:
       - cat1
