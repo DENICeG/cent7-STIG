@@ -847,6 +847,7 @@
      \t\tMEDIUM | V-38539 | AUDIT | The system must be configured to use TCP syncookies when experiencing a TCP SYN flood.\n
      \t\tMEDIUM | V-38542 | AUDIT | The system must use a reverse-path filter for IPv4 network traffic when possible on all interfaces.\n
      \t\tMEDIUM | V-38544 | AUDIT | The system must use a reverse-path filter for IPv4 network traffic when possible by default.\n
+     \t\tMEDIUM | V-38546 | AUDIT | The IPv6 protocol handler must not be bound to the network stack unless needed.\n
      \t\tMEDIUM | V-38548 | AUDIT | The system must ignore ICMPv6 redirects by default.\n
      \t\tMEDIUM | V-38600 | AUDIT | The system must not send ICMPv4 redirects by default.\n
      \t\tMEDIUM | V-38601 | AUDIT | The system must not send ICMPv4 redirects from any interface."
@@ -864,6 +865,7 @@
       - { ref: 'V-38539' , name: 'net.ipv4.tcp_syncookies' , value: '1' }
       - { ref: 'V-38542' , name: 'net.ipv4.conf.all.rp_filter' , value: '1' }
       - { ref: 'V-38544' , name: 'net.ipv4.conf.default.rp_filter' , value: '1' }
+      - { ref: 'V-38546' , name: 'net.ipv6.conf.all.disable_ipv6' , value: '1' }
       - { ref: 'V-38548' , name: 'net.ipv6.conf.default.accept_redirects' , value: '0' }
       - { ref: 'V-38600' , name: 'net.ipv4.conf.default.send_redirects' , value: '0' }
       - { ref: 'V-38601' , name: 'net.ipv4.conf.all.send_redirects' , value: '0' }
@@ -880,6 +882,7 @@
     - V-38539
     - V-38542
     - V-38544
+    - V-38546
     - V-38548
     - V-38600
     - V-38601
@@ -899,6 +902,7 @@
      \t\tMEDIUM | V-38539 | AUDIT | The system must be configured to use TCP syncookies when experiencing a TCP SYN flood.\n
      \t\tMEDIUM | V-38542 | AUDIT | The system must use a reverse-path filter for IPv4 network traffic when possible on all interfaces.\n
      \t\tMEDIUM | V-38544 | AUDIT | The system must use a reverse-path filter for IPv4 network traffic when possible by default.\n
+     \t\tMEDIUM | V-38546 | AUDIT | The IPv6 protocol handler must not be bound to the network stack unless needed.\n
      \t\tMEDIUM | V-38548 | AUDIT | The system must ignore ICMPv6 redirects by default.\n
      \t\tMEDIUM | V-38600 | AUDIT | The system must not send ICMPv4 redirects by default.\n
      \t\tMEDIUM | V-38601 | AUDIT | The system must not send ICMPv4 redirects from any interface."
@@ -923,6 +927,7 @@
     - V-38539
     - V-38542
     - V-38544
+    - V-38546
     - V-38548
     - V-38600
     - V-38601
@@ -942,6 +947,7 @@
      \t\tMEDIUM | V-38539 | PATCH | The system must be configured to use TCP syncookies when experiencing a TCP SYN flood.\n
      \t\tMEDIUM | V-38542 | PATCH | The system must use a reverse-path filter for IPv4 network traffic when possible on all interfaces.\n
      \t\tMEDIUM | V-38544 | PATCH | The system must use a reverse-path filter for IPv4 network traffic when possible by default.\n
+     \t\tMEDIUM | V-38546 | AUDIT | The IPv6 protocol handler must not be bound to the network stack unless needed.\n
      \t\tMEDIUM | V-38548 | PATCH | The system must ignore ICMPv6 redirects by default.\n
      \t\tMEDIUM | V-38600 | PATCH | The system must not send ICMPv4 redirects by default.\n
      \t\tMEDIUM | V-38601 | PATCH | The system must not send ICMPv4 redirects from any interface."
@@ -960,6 +966,7 @@
       - { ref: 'V-38539' , name: 'net.ipv4.tcp_syncookies' , value: '1' }
       - { ref: 'V-38542' , name: 'net.ipv4.conf.all.rp_filter' , value: '1' }
       - { ref: 'V-38544' , name: 'net.ipv4.conf.default.rp_filter' , value: '1' }
+      - { ref: 'V-38546' , name: 'net.ipv6.conf.all.disable_ipv6' , value: '1' }
       - { ref: 'V-38548' , name: 'net.ipv6.conf.default.accept_redirects' , value: '0' }
       - { ref: 'V-38600' , name: 'net.ipv4.conf.default.send_redirects' , value: '0' }
       - { ref: 'V-38601' , name: 'net.ipv4.conf.all.send_redirects' , value: '0' }
@@ -975,6 +982,7 @@
       - V-38539
       - V-38542
       - V-38544
+      - V-38546
       - V-38548
       - V-38600
       - V-38601

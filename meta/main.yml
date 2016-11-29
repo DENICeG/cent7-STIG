@@ -1,9 +1,9 @@
 ---
 galaxy_info:
-  author: "David Morse"
-  description: "Ansible role to apply RHEL 6 STIG to CentOS 7 box"
+  author: "Christian Simmen"
+  description: "Ansible role to apply RHEL 6 STIG (2016-07-22) to CentOS 7 box"
   license: MIT
-  min_ansible_version: 1.8
+  min_ansible_version: 2.2
   version: 1.0
 
   platforms:
